@@ -11,6 +11,7 @@ st.info("Whisper model loaded")
 
 st.header("Play audio file:")
 st.audio(audio_file)
+st.write(audio_file)
 
 if st.button("Transcribe Audio"):
     if audio_file is not None:
