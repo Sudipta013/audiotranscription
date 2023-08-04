@@ -2,3 +2,4 @@ streamlit==1.24.0
 whisper @ git+https://github.com/openai/whisper.git@8cf36f3508c9acd341a45eb2364239a3d81458b9
 openai
 git+https://github.com/openai/whisper.git 
+ffmpeg
