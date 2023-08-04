@@ -15,7 +15,7 @@ st.audio(audio_file)
 if st.button("Transcribe Audio"):
     if audio_file is not None:
         st.success("Transcribing Audio")
-        transcription = model.transcribe(audio_file.name)
+        transcription = model.transcribe(audio_file)
         st.success("Transcription Complete")
         st.markdown(transcription["text"])
     else:
