@@ -46,7 +46,7 @@ if st.button("Generate Trasnscript"):
 
                 # Save the transcript to a text file
                 with open("transcript.txt", "w") as f:
-                    f.write(transcription)
+                    f.write(transcription["text"])
 
                 # Provide a download button for the transcript
                 st.download_button("Download Transcript", transcript_text)
