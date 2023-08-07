@@ -49,6 +49,6 @@ if st.button("Generate Trasnscript"):
                     f.write(transcription["text"])
 
                 # Provide a download button for the transcript
-                st.download_button("Download Transcript", transcript_text)
+                st.download_button("Download Transcript", transcription["text"])
         else:
             st.error("⚠ Please upload a audio file")
