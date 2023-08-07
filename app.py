@@ -19,10 +19,10 @@ bg = """
         """
 st.markdown(bg, unsafe_allow_html=True)
 
-st.title("🔉 Automatic Audio transciption app using Whisper by OpenAI 🔉")
-st.info('✨ Supports all popular audio formats - WAV, MP3, MP4, OGG, WMA, AAC, FLAC, FLV ')
+st.title("🔉 Automatic Audio and Video transciption app using Whisper by OpenAI 🔉")
+st.info('✨ Supports all popular audio formats - WAV, MP3, MP4, OGG, WMA, AAC, FLAC, FLV and video format - MP4')
 #upload audio file with streamlit
-audio_file = st.file_uploader("Upload Audio", type=["wav","mp3","ogg","wma","aac","flac","mp4","flv"])
+audio_file = st.file_uploader("Upload Audio or video", type=["wav","mp3","ogg","wma","aac","flac","mp4","flv"])
 
 if audio_file is not None:
             #importing model -- base(74M pararameter)
@@ -40,7 +40,7 @@ if audio_file is not None:
                                     with NamedTemporaryFile(suffix="mp3") as temp:
                                         temp.write(audio_file.getvalue())
                                         temp.seek(0)
-                                        st.success("Transcribing Audio")
+                                        st.success("Transcribing Audio/video")
                                         transcription = model.transcribe(temp.name,fp16=False)
                                         st.success("Transcription Complete")
                                         st.markdown(transcription["text"])
