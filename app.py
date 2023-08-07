@@ -1,5 +1,6 @@
 import streamlit as st
 import whisper
+from tempfile import NamedTemporaryFile
 st.set_page_config(page_title="chatPdf", page_icon="🧊")
 st.title("Audio transciption app")
 
@@ -15,9 +16,12 @@ st.audio(audio_file)
 
 if st.button("Transcribe Audio"):
     if audio_file is not None:
-        st.success("Transcribing Audio")
-        transcription = model.transcribe(audio_file.name, fp16=False, language='English')
-        st.success("Transcription Complete")
-        st.markdown(transcription["text"])
+        with NamedTemporaryFile(suffix="mp3") as temp:
+            temp.write(audio_file.getvalue())
+            temp.seek(0)
+            st.success("Transcribing Audio")
+            transcription = model.transcribe(temp.name,fp16=False)
+            st.success("Transcription Complete")
+            st.markdown(transcription["text"])
     else:
         st.error("Please upload a audio file")
