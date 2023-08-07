@@ -24,31 +24,32 @@ st.info('✨ Supports all popular audio formats - WAV, MP3, MP4, OGG, WMA, AAC, 
 #upload audio file with streamlit
 audio_file = st.file_uploader("Upload Audio", type=["wav","mp3","ogg","wma","aac","flac","mp4","flv"])
 
-#importing model -- base(74M pararameter)
-model = whisper.load_model("base")
-st.info("Whisper model loaded")
+if audio_file is not None:
+            #importing model -- base(74M pararameter)
+            model = whisper.load_model("base")
+            st.info("Whisper model loaded")
 
-#playing audio file
-st.header("Play audio file:")
-st.audio(audio_file)
+            #playing audio file
+            st.header("Play audio file:")
+            st.audio(audio_file)
 
-#genrating transcript
-if st.button("Generate Trasnscript"):
-    with st.spinner(f"Processing Audio ... 💫"):
-        if audio_file is not None:
-            with NamedTemporaryFile(suffix="mp3") as temp:
-                temp.write(audio_file.getvalue())
-                temp.seek(0)
-                st.success("Transcribing Audio")
-                transcription = model.transcribe(temp.name,fp16=False)
-                st.success("Transcription Complete")
-                st.markdown(transcription["text"])
+            #genrating transcript
+            if st.button("Generate Trasnscript"):
+                        with st.spinner(f"Processing Audio ... 💫"):
+                                if audio_file is not None:
+                                    with NamedTemporaryFile(suffix="mp3") as temp:
+                                        temp.write(audio_file.getvalue())
+                                        temp.seek(0)
+                                        st.success("Transcribing Audio")
+                                        transcription = model.transcribe(temp.name,fp16=False)
+                                        st.success("Transcription Complete")
+                                        st.markdown(transcription["text"])
 
-                # Save the transcript to a text file
-                with open("transcript.txt", "w") as f:
-                    f.write(transcription["text"])
+                                        # Save the transcript to a text file
+                                        with open("transcript.txt", "w") as f:
+                                            f.write(transcription["text"])
 
-                # Provide a download button for the transcript
-                st.download_button("Download Transcript", transcription["text"])
-        else:
-            st.error("⚠ Please upload a audio file")
+                                        # Provide a download button for the transcript
+                                        st.download_button("Download Transcript", transcription["text"])
+                                else:
+                                    st.error("⚠ Please upload a audio file")
